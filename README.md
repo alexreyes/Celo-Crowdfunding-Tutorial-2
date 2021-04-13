@@ -28,6 +28,8 @@ module.exports = function (deployer) {
 
 Migrations in truffle are essentially deployment scripts. What we have written is a very simple deployment script which takes our contract (``CeloCrowdfund``) and deploy it. 
 
+
+
 ## Connecting to a Testnet node
 
 Let's create a .env file in the  **root directory**  of the  `celoSmartContract`  folder. To do so, navigate to the root directory of your project and type the following command into your terminal:
@@ -60,17 +62,17 @@ const Web3 = require('web3');
 require('dotenv').config();
 
 const main = async() =>  {
-    const web3 = new Web3(process.env.REST_URL);
-	const client = ContractKit.newKitFromWeb3(web3);
+  const web3 = new Web3(process.env.REST_URL);
+  const client = ContractKit.newKitFromWeb3(web3);
 
-	const account = web3.eth.accounts.create();
+  const account = web3.eth.accounts.create();
 
-	console.log('address: ', account.address);
-    console.log('privateKey: ', account.privateKey);
+  console.log('address: ', account.address);
+  console.log('privateKey: ', account.privateKey);
 };
 
 main().catch((err)  =>  {
-	console.error(err);
+  console.error(err);
 });
 ```
 Let's break this down.
