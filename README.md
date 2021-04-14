@@ -1,8 +1,10 @@
 # 2. Deploying a Crowdfunding Smart Contract in Celo
 
-[![Deploying a Crowdfunding Smart Contract in Celo](http://img.youtube.com/vi/HShFGDvBgNk/0.jpg)](https://www.youtube.com/watch?v=HShFGDvBgNk "Deploying a Crowdfunding Smart Contract in Celo")  
-
 If you've done part 1 of this tutorial series, you have a crowdfunding contract written in Solidity. Now that we've got a crowdfunding contract, we'll need to deploy it to the Celo test network in order to interact with it. 
+
+# Video
+
+[![Deploying a Crowdfunding Smart Contract in Celo](http://img.youtube.com/vi/HShFGDvBgNk/0.jpg)](https://www.youtube.com/watch?v=HShFGDvBgNk "Deploying a Crowdfunding Smart Contract in Celo")  
 
 # Prerequisites
 
