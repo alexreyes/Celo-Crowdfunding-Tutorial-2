@@ -1,5 +1,7 @@
 # 2. Deploying a Crowdfunding Smart Contract in Celo
 
+[![Deploying a Crowdfunding Smart Contract in Celo](http://img.youtube.com/vi/HShFGDvBgNk/0.jpg)](https://www.youtube.com/watch?v=HShFGDvBgNk "Deploying a Crowdfunding Smart Contract in Celo")  
+
 If you've done part 1 of this tutorial series, you have a crowdfunding contract written in Solidity. Now that we've got a crowdfunding contract, we'll need to deploy it to the Celo test network in order to interact with it. 
 
 # Prerequisites
@@ -16,7 +18,7 @@ First, open the terminal and `cd` into your Celo crowdfunding project folder.
 
 If there is already the ``1_initial_migration.js`` file in the folder, delete it. 
 
-Next, create a new file named ``1_celo_crowdfund`` and write the following: 
+Next, create a new file named ``1_celo_crowdfund.js`` and write the following: 
 
 ```
 const CeloCrowdfund = artifacts.require("CeloCrowdfund");
