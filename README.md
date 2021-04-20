@@ -1,22 +1,37 @@
+---
+description: >-
+  We will learn how to deploy a Smart Contract which facilitates crowdfunding. This is part two of a three part series.
+---
+
 # 2. Deploying a Crowdfunding Smart Contract in Celo
 
-If you've done part 1 of this tutorial series, you have a crowdfunding contract written in Solidity. Now that we've got a crowdfunding contract, we'll need to deploy it to the Celo test network in order to interact with it. 
+## About the Authors
 
-# Video
+The written tutorials were created by [Alex Reyes](https://www.linkedin.com/in/alexreyes-tech). Alex is a student \(BS, Computer Science\) and crypto enthusiast who's learning all about the world of web3 one day at a time and he's contributing to Web3 communities actively. He previously completed internships at Facebook and Microsoft.
+
+The videos were created by [Neo Cho](https://www.linkedin.com/in/neocho/). Neo is a student \(BS, Computer Science\) at the University of Central Florida. He enjoys learning about crypto, and is excited about the future of web3.
+
+## Introduction 
+
+If you've done part 1 of this tutorial series, you have a crowdfunding contract written in Solidity. Now that we've got a crowdfunding contract, we'll need to deploy it to the Celo test network in order to interact with it. Let's do that now!
+
+## Video
+
+Click the image below in order to watch the Youtube video for "Building a Crowdfunding Smart Contract in Celo".
 
 [![Deploying a Crowdfunding Smart Contract in Celo](http://img.youtube.com/vi/HShFGDvBgNk/0.jpg)](https://www.youtube.com/watch?v=HShFGDvBgNk "Deploying a Crowdfunding Smart Contract in Celo")  
 
-# Prerequisites
+## Prerequisites
 
-This tutorial assumes that you have followed part 1 (Building a Crowdfunding Smart Contract in Celo). If you have not, please go back and follow that tutorial first. 
+This tutorial assumes that you have followed and completed part 1 (Building a Crowdfunding Smart Contract in Celo). If you have not, please go back and follow that tutorial first. 
 
-# Deployment Setup
+## Deployment Setup
 
-First, open the terminal and `cd` into your Celo crowdfunding project folder. 
+First, open the terminal and `cd` into the Celo crowdfunding project folder. 
 
 ``cd celo-crowdfunding``
 
-## The migrations folder
+### The migrations folder
 
 If there is already the ``1_initial_migration.js`` file in the folder, delete it. 
 
@@ -32,21 +47,33 @@ module.exports = function (deployer) {
 
 Migrations in truffle are essentially deployment scripts. What we have written is a very simple deployment script which takes our contract (``CeloCrowdfund``) and deploy it. 
 
-
-
 ## Connecting to a Testnet node
-
-Let's create a .env file in the  **root directory**  of the  `celoSmartContract`  folder. To do so, navigate to the root directory of your project and type the following command into your terminal:
-
-```touch .env```
 
 We're going to use [Datahub](https://figment.io/datahub/) to connect to the Celo test network. If you don't have an account, sign up on the [Datahub](https://figment.io/datahub/) website and resume this tutorial once you have your Celo API key. 
 
-Next, open the .env file in your text editor and add the following variable:
+Now that we have an API key for the Datahub node, we'll want to secure it. Anyone who obtains your API key will be able to use your Datahub account's node. To secure it, let's create a `.env` file in the  **root directory**  of the `celoSmartContract` folder. The `.env` file is used for environment secrets, which means its the perfect place to store the Datahub API key. 
+
+To create this `.env` file, navigate to the root directory of the project and type the following command into the terminal:
+
+```touch .env```
+
+Next, open the `.env` file in a text editor and add the following variable, making sure to enter the API key between the `/`'s:
 
 `REST_URL=https://celo-alfajores--rpc.datahub.figment.io/apikey/<YOUR API KEY>/`
 
-**Note:**  there needs to be a trailing / at the end for this to work!
+**Note:** there needs to be a trailing `/` at the end for this to work!
+
+**Note:** If the plan is to commit this repo into Github, you won't want to upload the contents of the `.env` file. To get Git to ignore the `.env` file, create a `.gitignore` file from the terminal like so: 
+
+```touch .gitignore```
+
+Inside the `.gitignore`, put the following in a new line: 
+
+```
+.env
+```
+
+And that's it! The `.env` file will now be ignored by Git. 
 
 # Getting a Celo account
 
@@ -56,7 +83,7 @@ Next, we’re going to need a Celo account to deploy from. We will need three th
 -   A Celo account private key
 -   A Celo account  [loaded with testnet funds](https://celo.org/developers/faucet)
 
-First things first, let's get an account and a private key. Create a file named **getAccount.js** in your project folder. In that file, write the following:
+First things first, let's get an account and a private key. Create a file named **getAccount.js** in the project folder. In that file, write the following:
 
 ```
 const ContractKit = require('@celo/contractkit');
@@ -81,7 +108,7 @@ main().catch((err)  =>  {
 ```
 Let's break this down.
 
-First, the script imports ContractKit, Web3, and dotenv. Next, it connects to the Celo network via the REST\_URL in your `.env` file using the following:
+First, the script imports `ContractKit`, `Web3`, and `dotenv`. Next, it connects to the Celo network via the REST\_URL in the `.env` file using the following line:
 
 `const web3 = new Web3(process.env.REST_URL);`
 
@@ -93,29 +120,29 @@ After that, we just print out the address and private key for future use.
 
 **Note:** The above code is from [\#2. Create your first Celo account](https://learn.figment.io/network-documentation/celo/tutorial/intro-pathway-celo-basics/2.account), so feel free to rewind if you need a review.
 
-Next, run the script in your terminal:
+Next, run the script in the terminal:
 
 `node getAccount.js`
 
-Your output should print out the address and private key for you new Celo account. It will look like this:
+The output should print out the address and private key for you new Celo account. It will look like this:
 
 [![output](https://camo.githubusercontent.com/85e62204e4c406103e375245afef4c7ee1fb83998bf2b08e168044c4863fd42b/68747470733a2f2f692e696d6775722e636f6d2f7571314c5854662e706e67)](https://camo.githubusercontent.com/85e62204e4c406103e375245afef4c7ee1fb83998bf2b08e168044c4863fd42b/68747470733a2f2f692e696d6775722e636f6d2f7571314c5854662e706e67)
 
 **Note:** It is important to keep your private key secure! Whoever has it can access all your funds on Celo.
 
-Copy the privateKey into your .env file by adding a line with the following:
+Copy the privateKey into the `.env` file by adding a line with the following:
 
 `PRIVATE_KEY=YOUR-PRIVATE-KEY`
 
 Where **YOUR-PRIVATE-KEY** is the private key you got from the script output.
 
-Now that you have a Celo account, take the address and paste it into the [Celo developer faucet](https://celo.org/developers/faucet). This will give you testnet funds you can use to deploy your smart contract. Fill out the form and wait a couple of seconds, and your account should be loaded up and ready to go.
+Now that you have a Celo account, take the address and paste it into the [Celo developer faucet](https://celo.org/developers/faucet). This will give you testnet funds you can use to deploy the smart contract. Fill out the form and wait a couple of seconds, and your account should be loaded up and ready to go.
 
 [![funding](https://camo.githubusercontent.com/0c74bcb5251da3397bae2c6901c25218a6ff73befb825a53c546181e95e0db06/68747470733a2f2f692e696d6775722e636f6d2f7a5074575748572e706e67)](https://camo.githubusercontent.com/0c74bcb5251da3397bae2c6901c25218a6ff73befb825a53c546181e95e0db06/68747470733a2f2f692e696d6775722e636f6d2f7a5074575748572e706e67)
 
 ## Truffle config
 
-The **truffle-config.js** is used in order to tell truffle how you want to deploy your contract.
+The **truffle-config.js** is used in order to tell truffle how you want to deploy the contract.
 
 For our purposes, we will need to add the following code to the project truffle-config file:
 
@@ -156,23 +183,23 @@ module.exports = {
 };
 ```
 
-First, the config file imports ContractKit, Web3, and dotenv just like the `getAccounts.js` file.
+First, the config file imports `ContractKit`, `Web3`, and `dotenv` just like the `getAccounts.js` file.
 
-It connects to our Celo node by getting the REST\_URL from .env:
+It connects to our Celo node by getting the REST\_URL from `.env`:
 
 `const web3 = new Web3(process.env.REST_URL);`
 
-Then it gets your account from the private key in the `.env` file in order to deploy from your account:
+Then it gets the account from the private key in the `.env` file in order to deploy from your account:
 
 `const account = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATE_KEY);`
 
-We also add the private key to ContractKit in order to sign transactions with the following:
+We also add the private key to `ContractKit` in order to sign transactions with the following:
 
 `client.addAccount(account.privateKey);`
 
 And finally, in the `module.exports` function, we set the Solidity version we want to use under `compilers: {` and the network we want to deploy to under `networks: {`.
 
-The following block of code is what tells truffle to deploy to alfajores \(Celo's test network\):
+The following block of code is what tells truffle to deploy to Alfajores \(Celo's test network\):
 
 ```javascript
 alfajores: {
@@ -199,7 +226,7 @@ You should see the following deployment output:
 
 ![output](https://i.imgur.com/9m66tCO.png)
 
-If you see something like the above, you did it correctly! To see your smart contract on the Celo network, open the [Alfajores block explorer](https://alfajores-blockscout.celo-testnet.org/) and paste in the address on the contract address line of your truffle output:
+If you see something like the above, our code worked! To see the smart contract on the Celo network, open the [Alfajores block explorer](https://alfajores-blockscout.celo-testnet.org/) and paste in the address on the contract address line of the truffle output:
 
 `> contract address: YOUR-CELO-ADDRESS`
 
@@ -211,10 +238,9 @@ You should see a successful contract deployment at that address!
 
 Now that we've deployed our Celo crowdfunding smart contract on Celo, we can move on to interacting with it. In the next tutorial, we'll interact with our smart contract by creating new crowdfunding projects and donating to them. 
 
-Feel free to review the [source code](https://github.com/alexreyes/Celo-Crowdfunding-Tutorial-2) for this tutorial on Github. 
 ## Common Errors & Solutions
 
-If you run into errors at any point, feel free to ask on the Celo channel on the Figment Learn discord server. In any case, here are some common errors you may encounter.
+If you run into any problems, feel free to ask on the [Figment Learn Discord](https://discord.gg/f5YuEsQTAx). You can also view the source code [here](https://github.com/alexreyes/Celo-Crowdfunding-Tutorial-2). In any case, here are some common errors you may encounter.
 
 If you get the following error:
 
@@ -222,13 +248,13 @@ If you get the following error:
 
 [![json rpc error](https://camo.githubusercontent.com/b10c13fb11358a60891ccd1e3191e40ffe54d19ffef9b3f0b127e3e567eed1b6/68747470733a2f2f692e696d6775722e636f6d2f42384c657272552e706e67)](https://camo.githubusercontent.com/b10c13fb11358a60891ccd1e3191e40ffe54d19ffef9b3f0b127e3e567eed1b6/68747470733a2f2f692e696d6775722e636f6d2f42384c657272552e706e67)
 
-Then it's a problem with the **REST\_URL** in your **.env** file.
+Then it's a problem with the **REST\_URL** in the **.env** file.
 
 Make sure the URL has a trailing **/** at the end! It should look like this:
 
 `REST_URL = https://celo-alfajores--rpc.datahub.figment.io/apikey/YOUR-API-KEY/`
 
-If your contract didn't deploy to the test network, your output might look like this:
+If the contract didn't deploy to the test network, the output might look like this:
 
 [![didn&apos;t deploy](https://camo.githubusercontent.com/a59c20e99081c85f182da44f68a167aec86a58da7c690367b4dbe35f57673943/68747470733a2f2f692e696d6775722e636f6d2f703637645a444d2e706e67)](https://camo.githubusercontent.com/a59c20e99081c85f182da44f68a167aec86a58da7c690367b4dbe35f57673943/68747470733a2f2f692e696d6775722e636f6d2f703637645a444d2e706e67)
 
